@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Đăng Ký - Le Château Doré</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style>
+        .login-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e1e1e, #3a2f2f);
+            font-family: Arial, sans-serif;
+        }
+        
+        .login-container {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            width: 340px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        
+        .password-toggle {
+            margin-top: 5px;
+            font-size: 13px;
+            cursor: pointer;
+            color: #b8860b;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 11px;
+            border: none;
+            background: #b8860b;
+            color: white;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn:hover {
+            background: #a37509;
+        }
+        
+        .btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        
+        .login-link a {
+            color: #b8860b;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .gif-box img {
+            width: 280px;
+            border-radius: 12px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+            color: #b8860b;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="login-page">
+
+    <div class="login-container">
+
+        <!-- GIF -->
+        <div class="gif-box">
+            <img src="https://media.giphy.com/media/3o7TKtnuHOHHUjR38Y/giphy.gif" alt="Register GIF">
+        </div>
+
+        <!-- Form Register -->
+        <div class="login-box">
+            <h2>Đăng Ký</h2>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Mật khẩu</label>
+                    <input type="password" id="regPassword" required />
+                    <div class="password-toggle" onclick="togglePassword()">
+                        Hiện / Ẩn mật khẩu
+                    </div>
+                </div>
+
+                <button type="submit" class="btn" id="registerBtnSubmit">
+                    Đăng Ký
+                </button>
+
+                <div class="loading" id="loadingText">
+                    Đang tạo tài khoản...
+                </div>
+
+                <p id="regError" class="error-message"></p>
+
+            </form>
+
+            <div class="login-link">
+                Đã có tài khoản?
+                <a href="login.html">Đăng nhập</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        function togglePassword() {
+            const pass = document.getElementById("regPassword");
+            pass.type = pass.type === "password" ? "text" : "password";
+        }
+
+        const registerForm = document.getElementById("registerForm");
+        const btn = document.getElementById("registerBtnSubmit");
+        const loading = document.getElementById("loadingText");
+
+        registerForm.addEventListener("submit", function() {
+            btn.disabled = true;
+            loading.style.display = "block";
+        });
+    </script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
