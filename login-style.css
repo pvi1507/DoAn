@@ -1,0 +1,130 @@
+/* ============================= */
+
+
+/* LOGIN & REGISTER STYLE ONLY */
+
+
+/* ============================= */
+
+body.login-page {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1c1410, #2a1f1a);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+/* Container */
+
+.login-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+
+/* GIF */
+
+.gif-box img {
+    width: 280px;
+    border-radius: 12px;
+}
+
+
+/* Box */
+
+.login-box {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    width: 350px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.login-box h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+
+/* Form */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    color: #000;
+    background: #fff;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #b8860b;
+    box-shadow: 0 0 8px rgba(184, 134, 11, 0.3);
+}
+
+
+/* Button */
+
+.btn {
+    width: 100%;
+    padding: 11px;
+    border: none;
+    background: #b8860b;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #a37509;
+}
+
+.error-message {
+    color: red;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-link a {
+    color: #b8860b;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+/* Password toggle */
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 35px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #b8860b;
+}

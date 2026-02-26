@@ -1,38 +1,36 @@
 /**
- * Le Château Doré - JavaScript FULL
- * Version: Hoàn chỉnh có Login + Register
+ * Le Château Doré - JavaScript
+ * European Classic Restaurant Website
  */
 
-// ===============================
-// DOM READY
-// ===============================
 document.addEventListener("DOMContentLoaded", function() {
+    // Initialize all functions
     initHeader();
     initSmoothScroll();
     initAnimations();
     initReservationForm();
     initNewsletterForm();
     initMobileMenu();
-    initLogin();
-    initRegister();
-    updateLoginButton();
 });
 
-// ===============================
-// HEADER SCROLL EFFECT
-// ===============================
+/**
+ * Header scroll effect
+ */
 function initHeader() {
     const header = document.querySelector(".header");
-    if (!header) return;
 
     window.addEventListener("scroll", function() {
-        header.classList.toggle("scrolled", window.scrollY > 100);
+        if (window.scrollY > 100) {
+            header.classList.add("scrolled");
+        } else {
+            header.classList.remove("scrolled");
+        }
     });
 }
 
-// ===============================
-// SMOOTH SCROLL
-// ===============================
+/**
+ * Smooth scroll for navigation links
+ */
 function initSmoothScroll() {
     const navLinks = document.querySelectorAll('a[href^="#"]');
 
@@ -44,75 +42,118 @@ function initSmoothScroll() {
             if (targetId === "#") return;
 
             const targetElement = document.querySelector(targetId);
-            if (!targetElement) return;
+            if (targetElement) {
+                const headerHeight = document.querySelector(".header").offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight;
 
-            const header = document.querySelector(".header");
-            const headerHeight = header ? header.offsetHeight : 0;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: "smooth",
+                });
 
-            const targetPosition = targetElement.offsetTop - headerHeight;
-
-            window.scrollTo({
-                top: targetPosition,
-                behavior: "smooth",
-            });
+                // Update active nav link
+                navLinks.forEach((link) => link.classList.remove("active"));
+                this.classList.add("active");
+            }
         });
     });
 }
 
-// ===============================
-// SCROLL ANIMATIONS
-// ===============================
+/**
+ * Scroll animations using Intersection Observer
+ */
 function initAnimations() {
-    if (!("IntersectionObserver" in window)) return;
+    const observerOptions = {
+        root: null,
+        rootMargin: "0px",
+        threshold: 0.1,
+    };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.classList.add("animate-in");
+
+                // Add stagger effect for menu items
+                if (entry.target.classList.contains("menu-item")) {
+                    const menuItems = document.querySelectorAll(".menu-item");
+                    menuItems.forEach((item, index) => {
+                        item.style.transitionDelay = `${index * 0.1}s`;
+                    });
+                }
             }
         });
-    }, { threshold: 0.1 });
+    }, observerOptions);
 
-    const elements = document.querySelectorAll(
-        ".about-content, .menu-item, .contact-item, .section-header"
+    // Elements to animate
+    const animateElements = document.querySelectorAll(
+        ".about-content, .menu-item, .contact-item, .section-header",
     );
 
-    elements.forEach((el) => observer.observe(el));
+    animateElements.forEach((el) => {
+        el.classList.add("animate-on-scroll");
+        observer.observe(el);
+    });
+
+    // Add CSS for animations
+    const style = document.createElement("style");
+    style.textContent = `
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        
+        .animate-on-scroll.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .menu-item {
+            transition-delay: 0s !important;
+        }
+    `;
+    document.head.appendChild(style);
 }
 
-// ===============================
-// RESERVATION FORM (CẦN LOGIN)
-// ===============================
+/**
+ * Reservation form handling
+ */
 function initReservationForm() {
     const form = document.querySelector(".reservation-form");
+
     if (!form) return;
 
     form.addEventListener("submit", function(e) {
         e.preventDefault();
 
-        const loggedIn = localStorage.getItem("loggedIn");
+        // Get form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
-        if (loggedIn !== "true") {
-            showAlert("Bạn cần đăng nhập để đặt bàn!", "error");
-
-            localStorage.setItem("redirectAfterLogin", "index.html#reservation");
-
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 1000);
+        // Validate required fields
+        if (!data.name || !data.phone || !data.date || !data.time || !data.guests) {
+            showAlert("Vui lòng điền đầy đủ thông tin bắt buộc!", "error");
             return;
         }
 
-        showAlert("Đặt bàn thành công!", "success");
+        // Show success message (in real app, send to server)
+        showAlert(
+            "Đặt bàn thành công! Chúng tôi sẽ liên hệ xác nhận trong thời gian sớm nhất.",
+            "success",
+        );
+
+        // Reset form
         form.reset();
     });
 }
 
-// ===============================
-// NEWSLETTER
-// ===============================
+/**
+ * Newsletter form handling
+ */
 function initNewsletterForm() {
     const form = document.querySelector(".newsletter-form");
+
     if (!form) return;
 
     form.addEventListener("submit", function(e) {
@@ -121,24 +162,36 @@ function initNewsletterForm() {
         const emailInput = form.querySelector('input[type="email"]');
         const email = emailInput.value;
 
-        if (!isValidEmail(email)) {
-            showAlert("Vui lòng nhập email hợp lệ!", "error");
+        if (!email) {
+            showAlert("Vui lòng nhập địa email!", "error");
             return;
         }
 
-        showAlert("Đăng ký thành công!", "success");
+        if (!isValidEmail(email)) {
+            showAlert("Vui lòng nhập địa chỉ email hợp lệ!", "error");
+            return;
+        }
+
+        showAlert(
+            "Cảm ơn bạn đã đăng ký! Chúng tôi sẽ gửi tin tức mới nhất đến email của bạn.",
+            "success",
+        );
+
         emailInput.value = "";
     });
 }
 
+/**
+ * Email validation
+ */
 function isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
 }
 
-// ===============================
-// MOBILE MENU
-// ===============================
+/**
+ * Mobile menu toggle
+ */
 function initMobileMenu() {
     const menuBtn = document.querySelector(".mobile-menu-btn");
     const navMenu = document.querySelector(".nav-menu");
@@ -147,135 +200,201 @@ function initMobileMenu() {
 
     menuBtn.addEventListener("click", function() {
         navMenu.classList.toggle("active");
+
+        // Change icon
+        const icon = menuBtn.querySelector("i");
+        if (navMenu.classList.contains("active")) {
+            icon.classList.remove("fa-bars");
+            icon.classList.add("fa-times");
+        } else {
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+        }
     });
+
+    // Close menu when clicking on a link
+    const navLinks = navMenu.querySelectorAll("a");
+    navLinks.forEach((link) => {
+        link.addEventListener("click", function() {
+            navMenu.classList.remove("active");
+            const icon = menuBtn.querySelector("i");
+            icon.classList.remove("fa-times");
+            icon.classList.add("fa-bars");
+        });
+    });
+
+    // Add mobile menu styles
+    const style = document.createElement("style");
+    style.textContent = `
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: rgba(28, 20, 16, 0.98);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+                z-index: 999;
+            }
+            
+            .nav-menu.active {
+                transform: translateY(0);
+            }
+            
+            .nav-menu ul {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .nav-menu li {
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 15px 0;
+                text-align: center;
+            }
+        }
+    `;
+    document.head.appendChild(style);
 }
 
-// ===============================
-// ALERT BOX
-// ===============================
+/**
+ * Custom alert function
+ */
 function showAlert(message, type) {
-    const existing = document.querySelector(".custom-alert");
-    if (existing) existing.remove();
+    // Remove existing alerts
+    const existingAlert = document.querySelector(".custom-alert");
+    if (existingAlert) {
+        existingAlert.remove();
+    }
 
+    // Create alert element
     const alert = document.createElement("div");
-    alert.textContent = message;
+    alert.className = `custom-alert alert-${type}`;
+    alert.innerHTML = `
+        <div class="alert-content">
+            <i class="fas fa-${type === "success" ? "check-circle" : "exclamation-circle"}"></i>
+            <span>${message}</span>
+        </div>
+    `;
 
-    alert.style.position = "fixed";
-    alert.style.top = "100px";
-    alert.style.right = "20px";
-    alert.style.padding = "15px 25px";
-    alert.style.background = type === "success" ? "#27ae60" : "#e74c3c";
-    alert.style.color = "#fff";
-    alert.style.borderRadius = "6px";
-    alert.style.zIndex = "10000";
+    // Add alert styles
+    const style = document.createElement("style");
+    style.textContent = `
+        .custom-alert {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 10000;
+            animation: slideIn 0.4s ease;
+        }
+        
+        .custom-alert .alert-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            border-radius: 8px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+        }
+        
+        .alert-success .alert-content {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .alert-error .alert-content {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .alert-success i,
+        .alert-error i {
+            font-size: 22px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+        }
+        
+        .custom-alert.hiding {
+            animation: slideOut 0.4s ease forwards;
+        }
+    `;
+    document.head.appendChild(style);
 
     document.body.appendChild(alert);
 
-    setTimeout(() => alert.remove(), 3000);
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        alert.classList.add("hiding");
+        setTimeout(() => {
+            alert.remove();
+        }, 400);
+    }, 5000);
 }
 
-// ===============================
-// LOGIN SYSTEM
-// ===============================
-function initLogin() {
-    const loginForm = document.getElementById("loginForm");
-    if (!loginForm) return;
+/**
+ * Parallax effect for hero section
+ */
+window.addEventListener("scroll", function() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
 
-    loginForm.addEventListener("submit", function(e) {
-        e.preventDefault();
+    const scrolled = window.pageYOffset;
+    const rate = scrolled * 0.4;
 
-        const email = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const error = document.getElementById("error");
+    if (scrolled < window.innerHeight) {
+        hero.style.backgroundPositionY = rate + "px";
+    }
+});
 
-        error.textContent = "";
+/**
+ * Navbar active link on scroll
+ */
+window.addEventListener("scroll", function() {
+    const sections = document.querySelectorAll("section[id]");
+    const navLinks = document.querySelectorAll(".nav-menu a");
 
-        let users = JSON.parse(localStorage.getItem("users")) || [];
+    let current = "";
 
-        const validUser = users.find(
-            user => user.email === email && user.password === password
-        );
-
-        if (validUser) {
-
-            localStorage.setItem("loggedIn", "true");
-            localStorage.setItem("currentUser", email);
-
-            const redirect = localStorage.getItem("redirectAfterLogin");
-            localStorage.removeItem("redirectAfterLogin");
-
-            window.location.href = redirect || "index.html";
-
-        } else {
-            error.textContent = "Sai email hoặc mật khẩu!";
+    sections.forEach((section) => {
+        const sectionTop = section.offsetTop - 150;
+        if (scrolledY >= sectionTop) {
+            current = section.getAttribute("id");
         }
     });
-}
 
-// ===============================
-// REGISTER SYSTEM
-// ===============================
-function initRegister() {
-    const registerForm = document.getElementById("registerForm");
-    if (!registerForm) return;
-
-    registerForm.addEventListener("submit", function(e) {
-        e.preventDefault();
-
-        const email = document.getElementById("regEmail").value.trim();
-        const password = document.getElementById("regPassword").value.trim();
-        const error = document.getElementById("regError");
-
-        error.textContent = "";
-
-        if (!email || !password) {
-            error.textContent = "Vui lòng nhập đầy đủ thông tin!";
-            return;
+    navLinks.forEach((link) => {
+        link.classList.remove("active");
+        if (link.getAttribute("href") === "#" + current) {
+            link.classList.add("active");
         }
-
-        let users = JSON.parse(localStorage.getItem("users")) || [];
-
-        const exists = users.find(user => user.email === email);
-        if (exists) {
-            error.textContent = "Email đã tồn tại!";
-            return;
-        }
-
-        users.push({ email, password });
-        localStorage.setItem("users", JSON.stringify(users));
-
-        alert("Đăng ký thành công!");
-        window.location.href = "login.html";
     });
-}
+});
 
-// ===============================
-// UPDATE LOGIN BUTTON
-// ===============================
-function updateLoginButton() {
-    const navMenu = document.querySelector(".nav-menu ul");
-    if (!navMenu) return;
-
-    let loginBtn = document.getElementById("loginBtn");
-
-    if (!loginBtn) {
-        const li = document.createElement("li");
-        li.innerHTML = `<a href="login.html" id="loginBtn">Đăng Nhập</a>`;
-        navMenu.appendChild(li);
-        loginBtn = document.getElementById("loginBtn");
-    }
-
-    const loggedIn = localStorage.getItem("loggedIn");
-
-    if (loggedIn === "true") {
-        loginBtn.textContent = "Đăng Xuất";
-        loginBtn.href = "#";
-
-        loginBtn.addEventListener("click", function(e) {
-            e.preventDefault();
-            localStorage.removeItem("loggedIn");
-            localStorage.removeItem("currentUser");
-            location.reload();
-        });
-    }
-}
+const scrolledY = window.scrollY;
