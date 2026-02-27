@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
 });
-
+localStorage.setItem("loggedIn", "true");
 /* ================= PASSWORD TOGGLE ================= */
 
 function togglePassword() {

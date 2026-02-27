@@ -398,3 +398,24 @@ window.addEventListener("scroll", function() {
 });
 
 const scrolledY = window.scrollY;
+/* ====== CHECK LOGIN STATUS ====== */
+
+document.addEventListener("DOMContentLoaded", function() {
+    const loginBtn = document.getElementById("loginBtn");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const isLoggedIn = localStorage.getItem("loggedIn");
+
+    if (isLoggedIn === "true") {
+        if (loginBtn) loginBtn.style.display = "none";
+        if (logoutBtn) logoutBtn.style.display = "inline-block";
+    }
+});
+
+/* ====== LOGOUT FUNCTION ====== */
+
+function logout() {
+    localStorage.removeItem("loggedIn");
+    alert("Đã đăng xuất!");
+    window.location.reload();
+}
