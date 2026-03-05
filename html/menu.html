@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thực Đơn - Le Château Doré</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/style.css" />
+
+    <!-- Menu Page Specific CSS -->
+    <link rel="stylesheet" href="../css/menu-style.css" />
+  </head>
+
+  <body>
+    <!-- ============================================
+         HEADER SECTION
+         - Logo với biểu tượng vương miện
+         - Menu điều hướng
+         - Nút đăng nhập/đăng xuất
+    ============================================ -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <a href="../html/index.html">
+            <div class="logo-icon">
+              <i class="fas fa-crown"></i>
+            </div>
+            <div class="logo-text">
+              <h1>Le Château Doré</h1>
+              <p>Fine European Cuisine</p>
+            </div>
+          </a>
+        </div>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="about.html">Giới Thiệu</a></li>
+            <li><a href="menu.html" class="active">Thực Đơn</a></li>
+            <li><a href="index.html#reservation">Đặt Bàn</a></li>
+            <li><a href="index.html#contact">Liên Hệ</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="../html/login.html" id="loginBtn" class="btn btn-secondary"
+            >Đăng nhập</a
+          >
+          <button
+            onclick="logout()"
+            id="logoutBtn"
+            class="btn btn-secondary"
+            style="display: none"
+          >
+            Đăng xuất
+          </button>
+        </div>
+        <div class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============================================
+         PAGE HEADER SECTION
+         - Tiêu đề trang
+         - Breadcrumb navigation
+    ============================================ -->
+    <section class="page-header-menu">
+      <div class="page-header-content-menu">
+        <h1>Thực Đơn</h1>
+        <p>Tinh hoa ẩm thực châu Âu</p>
+        <div class="breadcrumbs">
+          <a href="../html/index.html">Trang Chủ</a>
+          <i class="fas fa-chevron-right"></i>
+          <span>Thực Đơn</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         MENU CONTENT SECTION
+         - Category filter buttons
+         - Menu sections (Khai Vị, Món Chính, Hải Sản, Tráng Miệng, Đồ Uống)
+    ============================================ -->
+    <section class="menu-page">
+      <div class="container">
+        <!-- Menu Category Buttons -->
+        <div class="menu-categories">
+          <button class="menu-category-btn active" data-category="all">
+            Tất Cả
+          </button>
+          <button class="menu-category-btn" data-category="appetizer">
+            Khai Vị
+          </button>
+          <button class="menu-category-btn" data-category="main">
+            Món Chính
+          </button>
+          <button class="menu-category-btn" data-category="seafood">
+            Hải Sản
+          </button>
+          <button class="menu-category-btn" data-category="dessert">
+            Tráng Miệng
+          </button>
+          <button class="menu-category-btn" data-category="drink">
+            Đồ Uống
+          </button>
+        </div>
+
+        <!-- ============================================
+                 KHAI VỊ (APPETIZERS)
+                 - French Onion Soup
+                 - Escargots de Bourgogne
+                 - Steak Tartare
+            ============================================ -->
+        <div class="menu-section active" id="appetizer">
+          <div class="menu-category-title">
+            <h3>Khai Vị</h3>
+            <p>Những món khai vị tinh tế để mở đầu bữa ăn</p>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="French Onion Soup" />
+              </div>
+              <div class="menu-content">
+                <h3>Soupe à l'Oignon</h3>
+                <p>
+                  Súp hành tây Pháp nấu chậm trong 24 giờ, phủ phô mai Gruyère
+                  nướng vàng
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">320,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: gluten, sữa
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Escargots" />
+              </div>
+              <div class="menu-content">
+                <h3>Escargots de Bourgogne</h3>
+                <p>
+                  Ốc sên Burgundy hầm với bơ tỏi, rau mùi tây và rượu vang trắng
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">450,000 ₫</div>
+                  <span class="menu-vegetarian"
+                    ><i class="fas fa-leaf"></i> Classic</span
+                  >
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: sữa, động vật có vỏ
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Beef Tartare" />
+              </div>
+              <div class="menu-content">
+                <h3>Steak Tartare</h3>
+                <p>
+                  Thịt bò sống băm nhuyễn, trộn với trứng gà sống, hành tây,
+                  capers và mustard
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">520,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: trứng, mustard
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+                 MÓN CHÍNH (MAIN COURSES)
+                 - Beef Wellington
+                 - Coq au Vin
+                 - Rack of Lamb
+                 - Duck Confit
+            ============================================ -->
+        <div class="menu-section" id="main">
+          <div class="menu-category-title">
+            <h3>Món Chính</h3>
+            <p>Những món ăn chính được chế biến từ nguyên liệu cao cấp</p>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img
+                  src="../images/beef-wellington.jpg"
+                  alt="Beef Wellington"
+                />
+              </div>
+              <div class="menu-content">
+                <h3>Beef Wellington</h3>
+                <p>
+                  Thịt bò fillet bọc trong pate mushroom duxelles, prosciutto và
+                  lớp puff pastry vàng giòn
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">1,250,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: gluten, sữa
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/coq-au-vin.jpg" alt="Coq au Vin" />
+              </div>
+              <div class="menu-content">
+                <h3>Coq au Vin</h3>
+                <p>
+                  Gà ta hầm trong rượu vang đỏ Burgundy với nấm, hành tây, tỏi
+                  và thảo mộc Pháp
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">890,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: sulfite
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/lamb.jpg" alt="Rack of Lamb" />
+              </div>
+              <div class="menu-content">
+                <h3>Rack of Lamb</h3>
+                <p>
+                  Sườn cừu non nướng với herbs de Provence, served pink bên
+                  trong với mint sauce
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">1,450,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: mint
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/duck-confit.jpg" alt="Duck Confit" />
+              </div>
+              <div class="menu-content">
+                <h3>Duck Confit</h3>
+                <p>
+                  Đùi vịt hầm trong mỡ vịt và thảo mộc trong 8 giờ, da giòn vàng
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">980,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: mỡ vịt
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+                 HẢI SẢN (SEAFOOD)
+                 - Paella Valenciana
+                 - Arroz con Bogavante
+                 - Sea Bass en Croûte
+            ============================================ -->
+        <div class="menu-section" id="seafood">
+          <div class="menu-category-title">
+            <h3>Hải Sản</h3>
+            <p>Tươi ngon từ biển</p>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/paella.jpg" alt="Paella Valenciana" />
+              </div>
+              <div class="menu-content">
+                <h3>Paella Valenciana</h3>
+                <p>
+                  Cơm paella truyền thống Tây Ban Nha với tôm hùm, cua, sò,
+                  nghêu và gạo Bomba
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">1,100,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: hải sản, gluten
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/risotto.jpg" alt="Lobster Risotto" />
+              </div>
+              <div class="menu-content">
+                <h3>Arroz con Bogavante</h3>
+                <p>
+                  Cơm risotto Ý với tôm hùm tươi, pho mát Parmigiano-Reggiano và
+                  dầu truffle
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">1,350,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: sữa, hải sản
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Grilled Sea Bass" />
+              </div>
+              <div class="menu-content">
+                <h3>Sea Bass en Croûte</h3>
+                <p>Cá basa Pháp nướng với herb butter, phủ bột mì vàng giòn</p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">950,000 ₫</div>
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: cá, gluten
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+                 TRÁNG MIỆNG (DESSERTS)
+                 - Crème Brûlée
+                 - Soufflé au Chocolat
+                 - Tarte Tatin
+            ============================================ -->
+        <div class="menu-section" id="dessert">
+          <div class="menu-category-title">
+            <h3>Tráng Miệng</h3>
+            <p>Kết thúc bữa ăn hoàn hảo</p>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Crème Brûlée" />
+              </div>
+              <div class="menu-content">
+                <h3>Crème Brûlée</h3>
+                <p>
+                  Kem vani Pháp với lớp đường caramel giòn bên trên, hương vani
+                  Madagascar
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">280,000 ₫</div>
+                  <span class="menu-vegetarian"
+                    ><i class="fas fa-leaf"></i> Vegetarian</span
+                  >
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: sữa, trứng
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Chocolate Soufflé" />
+              </div>
+              <div class="menu-content">
+                <h3>Soufflé au Chocolat</h3>
+                <p>
+                  Soufflé chocolate đen 70% cacao từ Ecuador, phủ sương đường
+                  bột
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">350,000 ₫</div>
+                  <span class="menu-vegetarian"
+                    ><i class="fas fa-leaf"></i> Vegetarian</span
+                  >
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: sữa, trứng, gluten
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Tarte Tatin" />
+              </div>
+              <div class="menu-content">
+                <h3>Tarte Tatin</h3>
+                <p>
+                  Bánh táo caramel ngược truyền thống Pháp, served với crème
+                  fraîche
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">260,000 ₫</div>
+                  <span class="menu-vegetarian"
+                    ><i class="fas fa-leaf"></i> Vegetarian</span
+                  >
+                </div>
+                <div class="menu-allergens">
+                  <i class="fas fa-info-circle"></i> Chứa: gluten, sữa
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ============================================
+                 ĐỒ UỐNG (DRINKS)
+                 - Château Margaux (Red Wine)
+                 - Montrachet (White Wine)
+                 - Dom Pérignon (Champagne)
+            ============================================ -->
+        <div class="menu-section" id="drink">
+          <div class="menu-category-title">
+            <h3>Đồ Uống</h3>
+            <p>Rượu vang và đồ uống cao cấp</p>
+          </div>
+          <div class="menu-grid">
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Red Wine" />
+              </div>
+              <div class="menu-content">
+                <h3>Château Margaux 2015</h3>
+                <p>
+                  Rượu vang đỏ từ vùng Bordeaux, hương trái cây đen, gỗ sồi và
+                  gia vị
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">12,500,000 ₫/chai</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="White Wine" />
+              </div>
+              <div class="menu-content">
+                <h3>Montrachet 2018</h3>
+                <p>
+                  Rượu vang trắng Burgundy từ nho Chardonnay, hương cam quýt,
+                  mật ong và minerals
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">8,900,000 ₫/chai</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="menu-item-detail">
+              <div class="menu-image">
+                <img src="../images/gallery-1.jpg" alt="Champagne" />
+              </div>
+              <div class="menu-content">
+                <h3>Dom Pérignon 2012</h3>
+                <p>
+                  Rượu Champagne cao cấp, hương bánh mì nướng, trái cây trắng và
+                  hoa nhài
+                </p>
+                <div class="menu-item-meta">
+                  <div class="menu-price">15,800,000 ₫/chai</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CTA SECTION
+         - Call to action for reservation
+    ============================================ -->
+    <section class="cta-section">
+      <div class="cta-overlay"></div>
+      <div class="container">
+        <div class="cta-content">
+          <h2>Đặt Bàn Ngay</h2>
+          <p>Trải nghiệm ẩm thực châu Âu đích thực tại Le Château Doré</p>
+          <div class="cta-buttons">
+            <a href="index.html#reservation" class="btn btn-primary"
+              >Đặt Bàn Ngay</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER SECTION
+         - Brand info
+         - Quick links
+         - Newsletter signup
+    ============================================ -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="logo">
+                <a href="../html/index.html">
+                  <div class="logo-icon">
+                    <i class="fas fa-crown"></i>
+                  </div>
+                  <div class="logo-text">
+                    <h1>Le Château Doré</h1>
+                  </div>
+                </a>
+              </div>
+              <p>
+                Nơi hội tụ tinh hoa ẩm thực châu Âu qua hơn một thế kỷ phục vụ.
+              </p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+              </div>
+            </div>
+
+            <div class="footer-links">
+              <h3>Liên Kết Nhanh</h3>
+              <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="about.html">Giới Thiệu</a></li>
+                <li><a href="menu.html">Thực Đơn</a></li>
+                <li><a href="index.html#reservation">Đặt Bàn</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-newsletter">
+              <h3>Đăng Ký Nhận Tin</h3>
+              <p>
+                Nhận thông tin về các chương trình đặc biệt và ưu đãi hàng
+                tháng.
+              </p>
+              <form class="newsletter-form">
+                <input type="email" placeholder="Nhập email của bạn" />
+                <button type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p>&copy; 2024 Le Château Doré. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="../js/script.js"></script>
+
+    <!-- Menu Page Specific JavaScript -->
+    <script src="../js/menu-script.js"></script>
+  </body>
+</html>

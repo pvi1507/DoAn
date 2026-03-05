@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Liên Hệ - Le Château Doré</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/reservation-style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="header-container">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fas fa-crown"></i>
+          </div>
+          <div class="logo-text">
+            <h1>Le Château Doré</h1>
+            <p>Fine European Cuisine</p>
+          </div>
+        </div>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="index.html">Trang Chủ</a></li>
+            <li><a href="about.html">Giới Thiệu</a></li>
+            <li><a href="menu.html">Thực Đơn</a></li>
+            <li><a href="reservation.html">Đặt Bàn</a></li>
+            <li><a href="contact.html" class="active">Liên Hệ</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="login.html" id="loginBtn" class="btn btn-secondary"
+            >Đăng nhập</a
+          >
+          <button
+            onclick="logout()"
+            id="logoutBtn"
+            class="btn btn-secondary"
+            style="display: none"
+          >
+            Đăng xuất
+          </button>
+        </div>
+        <div class="mobile-menu-btn">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="page-header-overlay"></div>
+      <div class="page-header-content">
+        <h1>Liên Hệ</h1>
+        <p>Chúng tôi luôn sẵn sàng phục vụ quý khách</p>
+        <div class="breadcrumb">
+          <a href="index.html">Trang Chủ</a>
+          <span>/</span>
+          <span>Liên Hệ</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="reservation-page">
+      <div class="container">
+        <div class="reservation-wrapper">
+          <!-- Left Side - Info -->
+          <div class="reservation-info">
+            <div class="info-card">
+              <h3>Thông Tin Liên Hệ</h3>
+              <p>
+                Hãy liên hệ với chúng tôi bất cứ khi nào bạn cần hỗ trợ hoặc đặt
+                câu hỏi. Chúng tôi sẽ phản hồi trong thời gian sớm nhất.
+              </p>
+            </div>
+
+            <div class="contact-info-list">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Địa Chỉ</h4>
+                  <p>42 Đường Nguyễn Trãi, Quận 1, TP.HCM</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Điện Thoại</h4>
+                  <p>+84 28 3929 1892</p>
+                  <p>+84 938 888 888</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <p>reservation@lechateaudore.com</p>
+                  <p>info@lechateaudore.com</p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Giờ Mở Cửa</h4>
+                  <p>Thứ 2 - CN: 11:00 - 14:00 & 18:00 - 22:00</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="promo-card">
+              <h4><i class="fas fa-share-alt"></i> Theo Dõi Chúng Tôi</h4>
+              <div class="social-links" style="margin-top: 15px">
+                <a
+                  href="#"
+                  style="
+                    width: 45px;
+                    height: 45px;
+                    background: #1877f2;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                  "
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a
+                  href="#"
+                  style="
+                    width: 45px;
+                    height: 45px;
+                    background: linear-gradient(45deg, #f09433, #bc1888);
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                  "
+                  ><i class="fab fa-instagram"></i
+                ></a>
+                <a
+                  href="#"
+                  style="
+                    width: 45px;
+                    height: 45px;
+                    background: #00aa6c;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                  "
+                  ><i class="fab fa-tripadvisor"></i
+                ></a>
+                <a
+                  href="#"
+                  style="
+                    width: 45px;
+                    height: 45px;
+                    background: #ff0000;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #fff;
+                  "
+                  ><i class="fab fa-youtube"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Side - Form -->
+          <div class="reservation-form-container">
+            <form class="reservation-form-advanced" id="contactForm">
+              <div class="form-header">
+                <h3>Gửi Tin Nhắn Cho Chúng Tôi</h3>
+                <p>Vui lòng điền đầy đủ thông tin bên dưới</p>
+              </div>
+
+              <div class="form-section">
+                <h4><i class="fas fa-user"></i> Thông Tin Khách Hàng</h4>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="name">Họ và Tên *</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      placeholder="Nhập họ và tên"
+                      required
+                    />
+                    <i class="fas fa-user input-icon"></i>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      placeholder="Nhập địa chỉ email"
+                      required
+                    />
+                    <i class="fas fa-envelope input-icon"></i>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label for="phone">Số Điện Thoại</label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      placeholder="Nhập số điện thoại"
+                    />
+                    <i class="fas fa-phone input-icon"></i>
+                  </div>
+                  <div class="form-group">
+                    <label for="subject">Chủ Đề</label>
+                    <select id="subject" name="subject">
+                      <option value="">Chọn chủ đề</option>
+                      <option value="reservation">Đặt bàn</option>
+                      <option value="feedback">Góp ý</option>
+                      <option value="event">Tổ chức sự kiện</option>
+                      <option value="career">Tuyển dụng</option>
+                      <option value="other">Khác</option>
+                    </select>
+                    <i class="fas fa-tag input-icon"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-section">
+                <h4><i class="fas fa-comment-alt"></i> Nội Dung Tin Nhắn</h4>
+                <div class="form-group full">
+                  <label for="message">Nội Dung *</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Nhập nội dung tin nhắn..."
+                    rows="6"
+                    required
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-large">
+                  <i class="fas fa-paper-plane"></i> Gửi Tin Nhắn
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- Map Section -->
+        <div class="map-section">
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.5093579440923!2d106.68530831480233!3d10.771616992329!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f3a4a363d21%3A0x5d4c02d3b1b3c4d1!2zNDIgQsO5aSBIxrBuZyBUcuG7jW5nLCBRdeG6rW4gMSwgVGjDoG5oIHBo4buRIEjhu5NuZyB04buJTiBQaMO6IE5oacOqbiwgVHLhu4NuZyBOZ-G7jWMgQ2jDrSBOaMO6IE5oacOqbiwgVmnhu4duIE7DtG5n!5e0!3m2!1svi!2s!4v1645000000000!5m2!1svi!2s"
+              width="100%"
+              height="400"
+              style="border: 0"
+              allowfullscreen=""
+              loading="lazy"
+            >
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div class="footer-grid">
+            <div class="footer-brand">
+              <div class="logo">
+                <div class="logo-icon">
+                  <i class="fas fa-crown"></i>
+                </div>
+                <div class="logo-text">
+                  <h1>Le Château Doré</h1>
+                </div>
+              </div>
+              <p>
+                Nơi hội tụ tinh hoa ẩm thực châu Âu qua hơn một thế kỷ phục vụ.
+              </p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tripadvisor"></i></a>
+              </div>
+            </div>
+
+            <div class="footer-links">
+              <h3>Liên Kết Nhanh</h3>
+              <ul>
+                <li><a href="index.html">Trang Chủ</a></li>
+                <li><a href="about.html">Giới Thiệu</a></li>
+                <li><a href="menu.html">Thực Đơn</a></li>
+                <li><a href="reservation.html">Đặt Bàn</a></li>
+              </ul>
+            </div>
+
+            <div class="footer-newsletter">
+              <h3>Đăng Ký Nhận Tin</h3>
+              <p>
+                Nhận thông tin về các chương trình đặc biệt và ưu đãi hàng
+                tháng.
+              </p>
+              <form class="newsletter-form">
+                <input type="email" placeholder="Nhập email của bạn" />
+                <button type="submit">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="container">
+          <p>
+            &copy; 2024 Le Château Doré. All rights reserved. Designed with
+            passion for fine dining.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/contact-script.js"></script>
+  </body>
+</html>

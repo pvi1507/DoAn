@@ -1,0 +1,364 @@
+/* ============================================
+   MENU PAGE STYLES - Le Château Doré
+   ============================================ */
+
+/* ============================================
+   PAGE HEADER STYLES
+   - Background gradient
+   - Typography
+   - Breadcrumb navigation
+============================================ */
+
+.page-header-menu {
+  position: relative;
+  height: 40vh;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--color-background-dark) 0%,
+    #2a1f1a 100%
+  );
+  overflow: hidden;
+}
+
+/* Decorative gradient overlay */
+
+.page-header-menu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(184, 134, 11, 0.1) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(212, 175, 55, 0.08) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+}
+
+/* Header content positioning */
+
+.page-header-content-menu {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+  padding: 80px 20px 0;
+}
+
+/* Main title styling */
+
+.page-header-content-menu h1 {
+  font-family: var(--font-primary);
+  font-size: clamp(36px, 6vw, 60px);
+  color: #fff;
+  letter-spacing: 6px;
+  margin-bottom: 15px;
+  text-shadow: 2px 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtitle styling */
+
+.page-header-content-menu p {
+  font-family: var(--font-secondary);
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 25px;
+}
+
+/* ============================================
+   BREADCRUMB NAVIGATION
+   - Navigation path indicator
+   - Hover effects
+============================================ */
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-family: var(--font-secondary);
+  font-size: 15px;
+}
+
+.breadcrumbs a {
+  color: var(--color-primary-light);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.breadcrumbs a:hover {
+  color: #fff;
+}
+
+.breadcrumbs i {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.breadcrumbs span {
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ============================================
+   MENU CATEGORY FILTERS
+   - Tab-style buttons
+   - Active state styling
+============================================ */
+
+.menu-categories {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.menu-category-btn {
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-secondary);
+  font-family: var(--font-secondary);
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.menu-category-btn:hover,
+.menu-category-btn.active {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ============================================
+   MENU SECTIONS
+   - Section visibility toggle
+   - Animation effects
+============================================ */
+
+.menu-section {
+  display: none;
+}
+
+.menu-section.active {
+  display: block;
+  animation: fadeIn 0.5s ease;
+}
+
+/* Fade in animation */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   MENU CATEGORY TITLES
+   - Section headers
+   - Descriptions
+============================================ */
+
+.menu-category-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.menu-category-title h3 {
+  font-family: var(--font-primary);
+  font-size: 32px;
+  color: var(--color-secondary);
+  margin-bottom: 10px;
+}
+
+.menu-category-title p {
+  color: var(--color-text-light);
+  font-size: 16px;
+}
+
+/* ============================================
+   MENU ITEM CARDS
+   - Image container
+   - Content area
+   - Hover effects
+============================================ */
+
+.menu-item-detail {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.menu-item-detail:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Image styling */
+
+.menu-item-detail .menu-image {
+  height: 250px;
+}
+
+.menu-item-detail .menu-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Content area */
+
+.menu-item-detail .menu-content {
+  padding: 30px;
+}
+
+.menu-item-detail h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: var(--color-secondary);
+}
+
+.menu-item-detail p {
+  color: var(--color-text-light);
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+/* ============================================
+   MENU ITEM META INFO
+   - Price styling
+   - Dietary indicators (vegetarian, spicy)
+============================================ */
+
+.menu-item-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.menu-price {
+  font-family: var(--font-primary);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-primary-dark);
+}
+
+/* Vegetarian badge */
+
+.menu-vegetarian {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: #e8f5e9;
+  color: #2e7d32;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Spicy badge */
+
+.menu-spicy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: #ffebee;
+  color: #c62828;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* ============================================
+   ALLERGEN INFORMATION
+   - Food allergy warnings
+   - Info icons
+============================================ */
+
+.menu-allergens {
+  margin-top: 15px;
+  font-size: 13px;
+  color: var(--color-text-lightest);
+}
+
+.menu-allergens i {
+  margin-right: 5px;
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   - Mobile adjustments
+   - Tablet adjustments
+============================================ */
+
+@media (max-width: 768px) {
+  .page-header-menu {
+    height: 35vh;
+    min-height: 280px;
+  }
+  .menu-categories {
+    gap: 10px;
+  }
+  .menu-category-btn {
+    padding: 10px 20px;
+    font-size: 12px;
+  }
+  .menu-category-title h3 {
+    font-size: 26px;
+  }
+  .menu-item-detail .menu-content {
+    padding: 20px;
+  }
+  .menu-item-detail h3 {
+    font-size: 20px;
+  }
+  .menu-price {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-header-content-menu h1 {
+    letter-spacing: 3px;
+  }
+  .page-header-content-menu p {
+    font-size: 16px;
+  }
+  .breadcrumbs {
+    font-size: 13px;
+  }
+  .menu-item-detail .menu-image {
+    height: 200px;
+  }
+}
