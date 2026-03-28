@@ -7,7 +7,8 @@ import java.sql.*;
 public class TaiKhoanRepository {
 
     public TaiKhoan login(String username, String password) {
-        String sql = "SELECT * FROM TaiKhoan WHERE TenDangNhap=? AND MatKhau=? AND TrangThai=1";
+
+        String sql = "SELECT * FROM TaiKhoan WHERE TenDangNhap=? AND MatKhau=?";
 
         try (Connection conn = DataConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -18,11 +19,14 @@ public class TaiKhoanRepository {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
+
                 TaiKhoan tk = new TaiKhoan();
-                tk.setMaTK(rs.getInt("MaTK"));
+
                 tk.setTenDangNhap(rs.getString("TenDangNhap"));
-                tk.setMaVaiTro(rs.getInt("MaVaiTro"));
-                tk.setTrangThai(rs.getBoolean("TrangThai"));
+                tk.setMatKhau(rs.getString("MatKhau"));
+                tk.setMaNhanVien(rs.getInt("MaNhanVien"));
+                tk.setQuyen(rs.getString("Quyen"));
+
                 return tk;
             }
 

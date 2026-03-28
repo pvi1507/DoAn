@@ -24,9 +24,12 @@ public class MonAnService {
     public boolean update(MonAn ma) {
         return repo.update(ma);
     }
-
+    
     public boolean delete(int maMon) {
         return repo.delete(maMon);
     }
-    
+
+    public List<MonAn> search(String ten){
+        return repo.search(ten);
+    }
 }

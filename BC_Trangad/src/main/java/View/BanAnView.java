@@ -24,6 +24,13 @@ public class BanAnView extends JPanel {
     /**
      * Creates new form BanAnView
      */
+    // ===== COLOR (GIỐNG MÓN ĂN) =====
+    Color bgMain = new Color(240, 248, 255);
+    Color bgPanel = new Color(225, 240, 255);
+    Color primary = new Color(0, 120, 215);
+    Color textDark = new Color(30, 30, 30);
+    Color white = Color.WHITE;
+
     private JTextField txtMaBan, txtTenBan;
     private JComboBox<String> cbTrangThai;
     private JTable table;
@@ -32,8 +39,8 @@ public class BanAnView extends JPanel {
     private BanAnController controller;
 
     public BanAnView() {
-        setLayout(new BorderLayout());
-        setBackground(new Color(60, 25, 0));
+        setLayout(new BorderLayout(20,20));
+        setBackground(bgMain);
 
         controller = new BanAnController(this);
 
@@ -45,48 +52,36 @@ public class BanAnView extends JPanel {
 
         // ===== TITLE =====
         JLabel lblTitle = new JLabel("QUẢN LÝ BÀN", SwingConstants.CENTER);
-        lblTitle.setFont(new Font("Serif", Font.BOLD, 28));
-        lblTitle.setForeground(new Color(212, 175, 55));
-        lblTitle.setBorder(BorderFactory.createEmptyBorder(20,0,20,0));
+        lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 26));
+        lblTitle.setForeground(primary);
         add(lblTitle, BorderLayout.NORTH);
 
-        // ===== FORM PANEL =====
-        JPanel formPanel = new JPanel(new GridBagLayout());
-        formPanel.setBackground(new Color(60, 25, 0));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10,10,10,10);
+        JPanel mainPanel = new JPanel(new BorderLayout(20,20));
+        mainPanel.setBackground(bgPanel);
+        mainPanel.setBorder(BorderFactory.createEmptyBorder(20,40,20,40));
 
-        JLabel lblMa = new JLabel("Mã Bàn");
-        lblMa.setForeground(new Color(212,175,55));
-        gbc.gridx=0; gbc.gridy=0;
-        formPanel.add(lblMa, gbc);
+        // ===== FORM =====
+        JPanel form = new JPanel(new GridLayout(3,2,15,15));
+        form.setBackground(bgPanel);
 
-        txtMaBan = new JTextField(15);
-        txtMaBan.setEditable(false); // 🔥 không cho sửa mã
-        gbc.gridx=1;
-        formPanel.add(txtMaBan, gbc);
+        txtMaBan = createTextField();
+        txtMaBan.setEditable(false);
 
-        JLabel lblTen = new JLabel("Tên Bàn");
-        lblTen.setForeground(new Color(212,175,55));
-        gbc.gridx=0; gbc.gridy=1;
-        formPanel.add(lblTen, gbc);
+        txtTenBan = createTextField();
 
-        txtTenBan = new JTextField(15);
-        gbc.gridx=1;
-        formPanel.add(txtTenBan, gbc);
+        cbTrangThai = new JComboBox<>(new String[]{"Trống","Đang phục vụ"});
+        styleComboBox(cbTrangThai);
 
-        JLabel lblTrangThai = new JLabel("Trạng Thái");
-        lblTrangThai.setForeground(new Color(212,175,55));
-        gbc.gridx=0; gbc.gridy=2;
-        formPanel.add(lblTrangThai, gbc);
+        form.add(createLabel("Mã bàn"));
+        form.add(txtMaBan);
+        form.add(createLabel("Tên bàn"));
+        form.add(txtTenBan);
+        form.add(createLabel("Trạng thái"));
+        form.add(cbTrangThai);
 
-        cbTrangThai = new JComboBox<>(new String[]{"Trống", "Đang phục vụ"});
-        gbc.gridx=1;
-        formPanel.add(cbTrangThai, gbc);
-
-        // ===== BUTTON PANEL =====
+        // ===== BUTTON =====
         JPanel btnPanel = new JPanel();
-        btnPanel.setBackground(new Color(60, 25, 0));
+        btnPanel.setBackground(bgPanel);
 
         JButton btnAdd = createButton("Thêm");
         JButton btnUpdate = createButton("Sửa");
@@ -98,24 +93,39 @@ public class BanAnView extends JPanel {
         btnPanel.add(btnDelete);
         btnPanel.add(btnRefresh);
 
-        gbc.gridx=0; gbc.gridy=3; gbc.gridwidth=2;
-        formPanel.add(btnPanel, gbc);
+        // ===== TOP =====
+        JPanel top = new JPanel();
+        top.setLayout(new BoxLayout(top, BoxLayout.Y_AXIS));
+        top.setBackground(bgPanel);
 
-        add(formPanel, BorderLayout.CENTER);
+        top.add(form);
+        top.add(Box.createVerticalStrut(10));
+        top.add(btnPanel);
+
+        mainPanel.add(top, BorderLayout.NORTH);
 
         // ===== TABLE =====
-        model = new DefaultTableModel(new String[]{"Mã", "Tên Bàn", "Trạng Thái"},0);
+        model = new DefaultTableModel(
+                new String[]{"Mã","Tên bàn","Trạng thái"},0
+        );
+
         table = new JTable(model);
-        table.setRowHeight(25);
+        table.setRowHeight(30);
+        table.setBackground(white);
+        table.setForeground(textDark);
+        table.setSelectionBackground(primary);
+        table.setSelectionForeground(Color.WHITE);
 
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setBorder(new TitledBorder("Danh sách bàn"));
-        add(scroll, BorderLayout.SOUTH);
+        mainPanel.add(scroll, BorderLayout.CENTER);
 
-        // ===== EVENTS =====
+        add(mainPanel, BorderLayout.CENTER);
+
+        // ===== EVENT =====
         btnAdd.addActionListener(e -> controller.addBan());
         btnUpdate.addActionListener(e -> controller.updateBan());
         btnDelete.addActionListener(e -> controller.deleteBan());
+
         btnRefresh.addActionListener(e -> clearForm());
 
         table.getSelectionModel().addListSelectionListener(e -> {
@@ -128,13 +138,36 @@ public class BanAnView extends JPanel {
         });
     }
 
+    // ===== STYLE =====
+    private JTextField createTextField(){
+        JTextField txt = new JTextField();
+        txt.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        txt.setBorder(BorderFactory.createLineBorder(primary));
+        return txt;
+    }
+
+    private JLabel createLabel(String text){
+        JLabel lbl = new JLabel(text);
+        lbl.setForeground(primary);
+        lbl.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        return lbl;
+    }
+
     private JButton createButton(String text){
         JButton btn = new JButton(text);
-        btn.setBackground(new Color(212,175,55));
+        btn.setBackground(primary);
+        btn.setForeground(Color.WHITE);
         btn.setFocusPainted(false);
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
         return btn;
     }
 
+    private void styleComboBox(JComboBox<?> cb){
+        cb.setBackground(white);
+        cb.setBorder(BorderFactory.createLineBorder(primary));
+    }
+
+    // ===== METHODS =====
     public void showTable(List<BanAn> list){
         model.setRowCount(0);
         for(BanAn b : list){

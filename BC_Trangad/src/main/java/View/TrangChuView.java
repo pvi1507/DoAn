@@ -18,103 +18,184 @@ public class TrangChuView extends JFrame {
     /**
      * Creates new form TrangChuView
      */
-
-    public JButton btnTrangChu = new JButton("TRANG CHỦ");
-    public JButton btnMonAn = new JButton("QUẢN LÝ MÓN");
-    public JButton btnBan = new JButton("QUẢN LÝ BÀN");
-    public JButton btnHoaDon = new JButton("HÓA ĐƠN");
-    public JButton btnNhanVien = new JButton("NHÂN VIÊN");
-    public JButton btnDangXuat = new JButton("ĐĂNG XUẤT");
+    public JButton btnTrangChu = new JButton("Trang chủ");
+    public JButton btnMonAn = new JButton("Quản lý món ăn");
+    public JButton btnBan = new JButton("Quản lý bàn");
+    public JButton btnHoaDon = new JButton("Quản lý đơn hàng");
+    public JButton btnNhanVien = new JButton("Quản lý người dùng");
+    public JButton btnDangXuat = new JButton("Đăng xuất");
 
     public JPanel contentPanel = new JPanel();
 
     public TrangChuView(String username, String role) {
 
-        setTitle("LE CHÂTEAU DORÉ - ADMIN");
-        setSize(1000, 600);
+        setTitle("Quản lý nhà hàng");
+        setSize(1200, 700);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        Color gold = new Color(212, 175, 55);
-        Color darkBrown = new Color(30, 20, 10);
-        Color softWhite = new Color(245, 240, 230);
+        Color background = new Color(245, 247, 250);
 
-        // ===== HEADER =====
-        JPanel header = new JPanel();
-        header.setBackground(darkBrown);
-        header.setPreferredSize(new Dimension(1000, 80));
-        header.setLayout(new BorderLayout());
+        /* ================= SIDEBAR ================= */
+        JPanel menuPanel = new JPanel() {
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                GradientPaint gp = new GradientPaint(
+                        0, 0, new Color(45, 110, 255),
+                        0, getHeight(), new Color(30, 80, 230));
+                g2.setPaint(gp);
+                g2.fillRect(0, 0, getWidth(), getHeight());
+            }
+        };
 
-        JLabel lblTitle = new JLabel("  LE CHÂTEAU DORÉ");
-        lblTitle.setForeground(gold);
-        lblTitle.setFont(new Font("Serif", Font.BOLD, 26));
+        menuPanel.setPreferredSize(new Dimension(260, 0));
+        menuPanel.setLayout(new BorderLayout());
 
-        JLabel lblUser = new JLabel("Xin chào: " + username + " (" + role + ")   ");
-        lblUser.setForeground(softWhite);
-        lblUser.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        /* ===== TITLE ===== */
+        JPanel titlePanel = new JPanel();
+        titlePanel.setOpaque(false);
+        titlePanel.setPreferredSize(new Dimension(260, 70));
+        titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        titlePanel.setLayout(new BorderLayout());
 
-        header.add(lblTitle, BorderLayout.WEST);
-        header.add(lblUser, BorderLayout.EAST);
+        JLabel lblMenuTitle = new JLabel("Quản lý nhà hàng");
+        lblMenuTitle.setForeground(Color.WHITE);
+        lblMenuTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
 
-        add(header, BorderLayout.NORTH);
+        titlePanel.add(lblMenuTitle, BorderLayout.CENTER);
 
-        // ===== MENU =====
-        JPanel menuPanel = new JPanel();
-        menuPanel.setBackground(new Color(45, 30, 15));
-        menuPanel.setPreferredSize(new Dimension(230, 0));
-        menuPanel.setLayout(new GridLayout(7,1,10,10));
+        /* ===== MENU CENTER ===== */
+        JPanel menuCenter = new JPanel();
+        menuCenter.setOpaque(false);
+        menuCenter.setLayout(new BoxLayout(menuCenter, BoxLayout.Y_AXIS));
+        menuCenter.setBorder(BorderFactory.createEmptyBorder(10, 15, 10, 15));
 
-        styleButton(btnTrangChu, gold);
-        styleButton(btnMonAn, gold);
-        styleButton(btnBan, gold);
-        styleButton(btnHoaDon, gold);
-        styleButton(btnNhanVien, gold);
-        styleButton(btnDangXuat, gold);
+        menuCenter.add(Box.createVerticalStrut(15)); // khoảng cách với title
 
-        menuPanel.add(btnTrangChu);
+        styleSidebarButton(btnTrangChu);
+        styleSidebarButton(btnMonAn);
+        styleSidebarButton(btnBan);
+        styleSidebarButton(btnHoaDon);
+        styleSidebarButton(btnNhanVien);
 
-        if(role.equals("Admin")) {
-            menuPanel.add(btnMonAn);
-            menuPanel.add(btnNhanVien);
+        menuCenter.add(btnTrangChu);
+        menuCenter.add(Box.createVerticalStrut(8));
+
+        if (role.equals("Admin")) {
+            menuCenter.add(btnMonAn);
+            menuCenter.add(Box.createVerticalStrut(8));
+
+            menuCenter.add(btnNhanVien);
+            menuCenter.add(Box.createVerticalStrut(8));
         }
 
-        menuPanel.add(btnBan);
-        menuPanel.add(btnHoaDon);
-        menuPanel.add(btnDangXuat);
+        menuCenter.add(btnBan);
+        menuCenter.add(Box.createVerticalStrut(8));
+
+        menuCenter.add(btnHoaDon);
+
+        /* ===== USER INFO ===== */
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setOpaque(false);
+        bottomPanel.setLayout(new BorderLayout());
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(10, 15, 20, 15));
+
+        JPanel userBox = new JPanel();
+        userBox.setLayout(new GridLayout(3, 1));
+        userBox.setBackground(new Color(255, 255, 255, 40));
+        userBox.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        JLabel lblLogin = new JLabel("Đang đăng nhập với");
+        lblLogin.setForeground(Color.WHITE);
+        lblLogin.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+
+        JLabel lblUserName = new JLabel(username);
+        lblUserName.setForeground(Color.WHITE);
+        lblUserName.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        JLabel lblRole = new JLabel(role);
+        lblRole.setForeground(Color.LIGHT_GRAY);
+        lblRole.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+
+        userBox.add(lblLogin);
+        userBox.add(lblUserName);
+        userBox.add(lblRole);
+
+        /* ===== LOGOUT ===== */
+        btnDangXuat.setForeground(new Color(255, 120, 120));
+        btnDangXuat.setBorderPainted(false);
+        btnDangXuat.setContentAreaFilled(false);
+        btnDangXuat.setHorizontalAlignment(SwingConstants.LEFT);
+        btnDangXuat.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        bottomPanel.add(userBox, BorderLayout.CENTER);
+        bottomPanel.add(btnDangXuat, BorderLayout.SOUTH);
+
+        /* ===== ADD SIDEBAR ===== */
+        menuPanel.add(titlePanel, BorderLayout.NORTH);
+
+// thêm khoảng cách giữa title và menu
+        menuCenter.setBorder(BorderFactory.createEmptyBorder(20, 15, 10, 15));
+
+        menuPanel.add(menuCenter, BorderLayout.CENTER);
+        menuPanel.add(bottomPanel, BorderLayout.SOUTH);
 
         add(menuPanel, BorderLayout.WEST);
 
-        // ===== CONTENT =====
-        contentPanel.setBackground(darkBrown);
+        /* ================= CONTENT ================= */
         contentPanel.setLayout(new BorderLayout());
+        contentPanel.setBackground(background);
 
-        JLabel lblWelcome = new JLabel("WELCOME TO LE CHÂTEAU DORÉ", SwingConstants.CENTER);
-        lblWelcome.setFont(new Font("Serif", Font.BOLD, 32));
-        lblWelcome.setForeground(gold);
+        JLabel welcome = new JLabel("HỆ THỐNG QUẢN LÝ NHÀ HÀNG", SwingConstants.CENTER);
+        welcome.setFont(new Font("Segoe UI", Font.BOLD, 30));
 
-        JLabel lblSub = new JLabel("Fine European Cuisine Management System", SwingConstants.CENTER);
-        lblSub.setFont(new Font("SansSerif", Font.PLAIN, 16));
-        lblSub.setForeground(softWhite);
+        JLabel sub = new JLabel("Restaurant Management System", SwingConstants.CENTER);
+        sub.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 
-        JPanel centerBox = new JPanel();
-        centerBox.setBackground(darkBrown);
-        centerBox.setLayout(new GridLayout(2,1));
-        centerBox.add(lblWelcome);
-        centerBox.add(lblSub);
+        JPanel center = new JPanel(new GridLayout(2, 1));
+        center.setOpaque(false);
 
-        contentPanel.add(centerBox, BorderLayout.CENTER);
+        center.add(welcome);
+        center.add(sub);
+
+        contentPanel.add(center, BorderLayout.CENTER);
 
         add(contentPanel, BorderLayout.CENTER);
     }
 
-    private void styleButton(JButton button, Color gold) {
-        button.setFocusPainted(false);
-        button.setBackground(new Color(60, 40, 20));
-        button.setForeground(gold);
-        button.setFont(new Font("SansSerif", Font.BOLD, 14));
-        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        button.setBorder(BorderFactory.createLineBorder(gold, 1));
+    /* ================= STYLE SIDEBAR BUTTON ================= */
+    private void styleSidebarButton(JButton btn) {
+
+        btn.setFocusPainted(false);
+        btn.setForeground(Color.WHITE);
+        btn.setFont(new Font("Segoe UI", Font.PLAIN, 15));
+        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        btn.setHorizontalAlignment(SwingConstants.LEFT);
+        btn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
+
+        btn.setOpaque(true);
+        btn.setBackground(new Color(0, 0, 0, 0));
+
+        btn.setBorderPainted(false);
+        btn.setContentAreaFilled(false);
+
+        btn.setAlignmentX(Component.LEFT_ALIGNMENT);
+        btn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
+
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn.setBackground(new Color(255, 255, 255, 40));
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn.setBackground(new Color(0, 0, 0, 0));
+            }
+        });
     }
 
     /**
@@ -165,7 +246,7 @@ public class TrangChuView extends JFrame {
 
         /* Create and display the form */
         //java.awt.EventQueue.invokeLater(() -> new TrangChuView().setVisible(true));
-    }   
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

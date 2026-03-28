@@ -3,16 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Controller;
+
 import Service.TaiKhoanService;
 import View.LoginView;
 import Model.TaiKhoan;
 import View.TrangChuView;
 import javax.swing.*;
+
 /**
  *
  * @author DANG
  */
 public class LoginController {
+
     private LoginView view;
     private TaiKhoanService service;
 
@@ -24,25 +27,27 @@ public class LoginController {
     }
 
     private void login() {
-    String user = view.txtUsername.getText();
-    String pass = new String(view.txtPassword.getPassword());
 
-    TaiKhoan tk = service.login(user, pass);
+        String user = view.txtUsername.getText();
+        String pass = new String(view.txtPassword.getPassword());
 
-    if (tk != null) {
+        TaiKhoan tk = service.login(user, pass);
 
-        String role = (tk.getMaVaiTro() == 1) ? "Admin" : "Nhân viên";
+        if (tk != null) {
 
-        JOptionPane.showMessageDialog(view, "Đăng nhập thành công!");
+            String role = tk.getQuyen();   // lấy quyền từ database
 
-        view.dispose(); // đóng login
+            JOptionPane.showMessageDialog(view, "Đăng nhập thành công!");
 
-        TrangChuView trangChu = new TrangChuView(user, role);
-        new TrangChuController(trangChu);
-        trangChu.setVisible(true);
+            view.dispose(); // đóng login
 
-    } else {
-        JOptionPane.showMessageDialog(view, "Sai tài khoản hoặc mật khẩu!");
+            TrangChuView trangChu = new TrangChuView(user, role);
+            new TrangChuController(trangChu);
+
+            trangChu.setVisible(true);
+
+        } else {
+            JOptionPane.showMessageDialog(view, "Sai tài khoản hoặc mật khẩu!");
+        }
     }
-}
 }

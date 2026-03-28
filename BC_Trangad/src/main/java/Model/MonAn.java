@@ -1,32 +1,26 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author DANG
- */
 public class MonAn {
 
     private int maMon;
     private String tenMon;
     private double donGia;
     private int maLoai;
+    private String tenLoai;
+    private String moTa;
     private String hinhAnh;
-    private boolean trangThai;
 
     public MonAn() {
     }
 
-    public MonAn(int maMon, String tenMon, double donGia, int maLoai, boolean trangThai, String hinhAnh) {
+    public MonAn(int maMon, String tenMon, double donGia, int maLoai, String tenLoai, String moTa, String hinhAnh) {
         this.maMon = maMon;
         this.tenMon = tenMon;
         this.donGia = donGia;
         this.maLoai = maLoai;
+        this.tenLoai = tenLoai;
+        this.moTa = moTa;
         this.hinhAnh = hinhAnh;
-        this.trangThai = trangThai;
     }
 
     public int getMaMon() {
@@ -61,19 +55,27 @@ public class MonAn {
         this.maLoai = maLoai;
     }
 
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+
+    public String getMoTa() {
+        return moTa;
+    }
+
+    public void setMoTa(String moTa) {
+        this.moTa = moTa;
+    }
+
     public String getHinhAnh() {
         return hinhAnh;
     }
 
     public void setHinhAnh(String hinhAnh) {
         this.hinhAnh = hinhAnh;
-    }
-
-    public boolean isTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
     }
 }

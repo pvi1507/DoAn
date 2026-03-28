@@ -28,116 +28,105 @@ public class MonAnController {
         view.btnThem.addActionListener(e -> them());
         view.btnSua.addActionListener(e -> sua());
         view.btnXoa.addActionListener(e -> xoa());
+        view.btnTim.addActionListener(e -> tim());
+
         view.tblMonAn.getSelectionModel().addListSelectionListener(e -> showDetail());
+        view.btnLamMoi.addActionListener(e -> {
+            view.clearForm();
+            loadData();
+        });
     }
 
+    // ================= LOAD =================
     private void loadData() {
+
         view.model.setRowCount(0);
         List<MonAn> list = service.getAll();
 
         for (MonAn ma : list) {
 
-            String tenLoai = switch (ma.getMaLoai()) {
-                case 1 ->
-                    "Món chính";
-                case 2 ->
-                    "Khai vị";
-                case 3 ->
-                    "Tráng miệng";
-                case 4 ->
-                    "Đồ uống";
-                default ->
-                    "";
-            };
-
-            String trangThai = ma.isTrangThai()
-                    ? "Đang bán"
-                    : "Ngưng bán";
-
-            ImageIcon icon = null;
-
-            if (ma.getHinhAnh() != null && !ma.getHinhAnh().isEmpty()) {
-                ImageIcon img = new ImageIcon(ma.getHinhAnh());
-                Image scaled = img.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-                icon = new ImageIcon(scaled);
-            }
+            ImageIcon icon = loadImage(ma.getHinhAnh());
 
             view.model.addRow(new Object[]{
                 ma.getMaMon(),
                 ma.getTenMon(),
                 ma.getDonGia(),
-                tenLoai,
-                trangThai,
+                ma.getTenLoai(), // ✅ dùng luôn TenLoai
+                ma.getMoTa(),
                 icon
             });
         }
     }
 
+    // ================= LOAD ẢNH =================
+    private ImageIcon loadImage(String path) {
+
+        if (path == null || path.isEmpty()) {
+            return null;
+        }
+
+        ImageIcon img = new ImageIcon(path);
+        Image scaled = img.getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+
+        return new ImageIcon(scaled);
+    }
+
+    // ================= THÊM =================
     private void them() {
+
         try {
-            String ten = view.txtTen.getText().trim();
-            double gia = Double.parseDouble(view.txtGia.getText().trim());
-            int maLoai = view.cbLoai.getSelectedIndex() + 1;
-            boolean trangThai = view.cbTrangThai.getSelectedIndex() == 0;
 
-            String hinh = view.duongDanAnh;   // LẤY ĐÚNG Ở ĐÂY
+            MonAn ma = getFormData();
 
-            if (hinh == null || hinh.isEmpty()) {
-                JOptionPane.showMessageDialog(view, "Vui lòng chọn hình!");
+            if (service.add(ma)) {
+
+                JOptionPane.showMessageDialog(view, "Thêm thành công");
+                view.clearForm();
+                loadData();
+            }
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(view, "Lỗi dữ liệu!");
+        }
+    }
+
+    // ================= SỬA =================
+    private void sua() {
+        try {
+
+            int row = view.tblMonAn.getSelectedRow();
+            if (row < 0) {
+                JOptionPane.showMessageDialog(view, "Chọn dòng cần sửa!");
                 return;
             }
 
-            MonAn ma = new MonAn();
-            ma.setTenMon(ten);
-            ma.setDonGia(gia);
-            ma.setMaLoai(maLoai);
-            ma.setTrangThai(trangThai);
-            ma.setHinhAnh(hinh);
+            MonAn ma = getFormData();
+            ma.setMaMon(Integer.parseInt(view.txtMa.getText()));
 
-            if (service.add(ma)) {
-                JOptionPane.showMessageDialog(view, "Thêm thành công!");
-                view.clearForm();
-                loadData();
+            // 🔥 FIX GIỮ ẢNH CŨ
+            if (view.duongDanAnh == null || view.duongDanAnh.isEmpty()) {
+                // lấy ảnh cũ từ list
+                String oldImg = service.getAll().get(row).getHinhAnh();
+                ma.setHinhAnh(oldImg);
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(view, "Lỗi dữ liệu!");
-        }
-    }
-
-    private void sua() {
-        try {
-            int maMon = Integer.parseInt(view.txtMa.getText().trim());
-            String ten = view.txtTen.getText().trim();
-            double gia = Double.parseDouble(view.txtGia.getText().trim());
-
-            int maLoai = view.cbLoai.getSelectedIndex() + 1;
-            boolean trangThai = view.cbTrangThai.getSelectedIndex() == 0;
-
-            String hinh = view.duongDanAnh;   // LẤY ĐÚNG
-
-            MonAn ma = new MonAn();
-            ma.setMaMon(maMon);
-            ma.setTenMon(ten);
-            ma.setDonGia(gia);
-            ma.setMaLoai(maLoai);
-            ma.setTrangThai(trangThai);
-            ma.setHinhAnh(hinh);
 
             if (service.update(ma)) {
-                JOptionPane.showMessageDialog(view, "Sửa thành công!");
+                JOptionPane.showMessageDialog(view, "Sửa thành công");
                 view.clearForm();
                 loadData();
             }
 
         } catch (Exception e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(view, "Lỗi dữ liệu!");
         }
     }
 
+    // ================= XÓA =================
     private void xoa() {
+
         if (view.txtMa.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(view, "Vui lòng chọn món cần xóa!");
+            JOptionPane.showMessageDialog(view, "Chọn món cần xóa");
             return;
         }
 
@@ -145,22 +134,48 @@ public class MonAnController {
 
         int confirm = JOptionPane.showConfirmDialog(
                 view,
-                "Bạn có chắc muốn xóa?",
+                "Bạn chắc muốn xóa?",
                 "Xác nhận",
                 JOptionPane.YES_NO_OPTION
         );
 
         if (confirm == JOptionPane.YES_OPTION) {
+
             if (service.delete(maMon)) {
-                JOptionPane.showMessageDialog(view, "Xóa thành công!");
+
+                JOptionPane.showMessageDialog(view, "Xóa thành công");
                 loadData();
-            } else {
-                JOptionPane.showMessageDialog(view, "Xóa thất bại!");
+                view.clearForm();
             }
         }
     }
 
+    // ================= TÌM =================
+    private void tim() {
+
+        String keyword = view.txtTim.getText();
+        List<MonAn> list = service.search(keyword);
+
+        view.model.setRowCount(0);
+
+        for (MonAn ma : list) {
+
+            ImageIcon icon = loadImage(ma.getHinhAnh());
+
+            view.model.addRow(new Object[]{
+                ma.getMaMon(),
+                ma.getTenMon(),
+                ma.getDonGia(),
+                ma.getTenLoai(), // ✅ FIX: hiển thị tên loại
+                ma.getMoTa(),
+                icon
+            });
+        }
+    }
+
+    // ================= SHOW DETAIL =================
     private void showDetail() {
+
         int row = view.tblMonAn.getSelectedRow();
 
         if (row >= 0) {
@@ -168,13 +183,35 @@ public class MonAnController {
             view.txtMa.setText(view.model.getValueAt(row, 0).toString());
             view.txtTen.setText(view.model.getValueAt(row, 1).toString());
             view.txtGia.setText(view.model.getValueAt(row, 2).toString());
+            view.txtMoTa.setText(view.model.getValueAt(row, 4).toString());
 
-            view.cbLoai.setSelectedItem(
-                    view.model.getValueAt(row, 3).toString()
-            );
-            view.cbTrangThai.setSelectedItem(
-                    view.model.getValueAt(row, 4).toString()
-            );
+            // set combobox theo tên loại
+            String tenLoai = view.model.getValueAt(row, 3).toString();
+            view.cbLoai.setSelectedItem(tenLoai);
+
+            // hiển thị ảnh lại
+            ImageIcon icon = (ImageIcon) view.model.getValueAt(row, 5);
+            view.lblHinhAnh.setIcon(icon);
+            view.lblHinhAnh.setText("");
         }
+    }
+
+    // ================= LẤY DATA FORM =================
+    private MonAn getFormData() {
+
+        String ten = view.txtTen.getText().trim();
+        double gia = Double.parseDouble(view.txtGia.getText().trim());
+        int maLoai = view.cbLoai.getSelectedIndex() + 1;
+        String moTa = view.txtMoTa.getText();
+        String hinh = view.duongDanAnh;
+
+        MonAn ma = new MonAn();
+        ma.setTenMon(ten);
+        ma.setDonGia(gia);
+        ma.setMaLoai(maLoai);
+        ma.setMoTa(moTa);
+        ma.setHinhAnh(hinh);
+
+        return ma;
     }
 }

@@ -13,6 +13,7 @@ public class BanAn {
     private String tenBan;
     private String trangThai;
 
+    // ===== CONSTRUCTOR =====
     public BanAn() {
     }
 
@@ -27,6 +28,7 @@ public class BanAn {
         this.trangThai = trangThai;
     }
 
+    // ===== GETTER / SETTER =====
     public int getMaBan() {
         return maBan;
     }
@@ -49,5 +51,11 @@ public class BanAn {
 
     public void setTrangThai(String trangThai) {
         this.trangThai = trangThai;
+    }
+
+    // ===== TO STRING (RẤT QUAN TRỌNG) =====
+    @Override
+    public String toString() {
+        return tenBan + " (" + trangThai + ")";
     }
 }

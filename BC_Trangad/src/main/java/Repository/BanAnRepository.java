@@ -16,7 +16,7 @@ import java.util.List;
 public class BanAnRepository {
     public List<BanAn> getAll() {
         List<BanAn> list = new ArrayList<>();
-        String sql = "SELECT * FROM BanAn";
+        String sql = "SELECT * FROM Ban"; // ✅ FIX
 
         try (Connection conn = DataConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -38,8 +38,9 @@ public class BanAnRepository {
         return list;
     }
 
+    // ===== INSERT =====
     public boolean insert(BanAn b) {
-        String sql = "INSERT INTO BanAn (TenBan, TrangThai) VALUES (?, ?)";
+        String sql = "INSERT INTO Ban (TenBan, TrangThai) VALUES (?, ?)"; // ✅ FIX
 
         try (Connection conn = DataConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -56,8 +57,9 @@ public class BanAnRepository {
         return false;
     }
 
+    // ===== UPDATE =====
     public boolean update(BanAn b) {
-        String sql = "UPDATE BanAn SET TenBan=?, TrangThai=? WHERE MaBan=?";
+        String sql = "UPDATE Ban SET TenBan=?, TrangThai=? WHERE MaBan=?"; // ✅ FIX
 
         try (Connection conn = DataConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -75,8 +77,9 @@ public class BanAnRepository {
         return false;
     }
 
+    // ===== DELETE =====
     public boolean delete(int maBan) {
-        String sql = "DELETE FROM BanAn WHERE MaBan=?";
+        String sql = "DELETE FROM Ban WHERE MaBan=?"; // ✅ FIX
 
         try (Connection conn = DataConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {

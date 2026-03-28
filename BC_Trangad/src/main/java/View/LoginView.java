@@ -3,14 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package View;
+
 import javax.swing.*;
 import java.awt.*;
+
 /**
  *
  * @author DANG
  */
 public class LoginView extends JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(LoginView.class.getName());
 
     /**
@@ -30,12 +32,13 @@ public class LoginView extends JFrame {
 
         // ===== COLOR THEME =====
         Color gold = new Color(212, 175, 55);
-        Color darkBrown = new Color(30, 20, 10);
-        Color softWhite = new Color(245, 240, 230);
+        Color cream = new Color(252, 248, 235);     // nền sáng
+        Color brown = new Color(120, 90, 60);       // nâu nhạt
+        Color darkText = new Color(70, 50, 30);     // chữ
 
         // ===== MAIN PANEL =====
         JPanel mainPanel = new JPanel();
-        mainPanel.setBackground(darkBrown);
+        mainPanel.setBackground(cream);
         mainPanel.setLayout(null);
 
         // ===== TITLE =====
@@ -47,7 +50,7 @@ public class LoginView extends JFrame {
 
         JLabel lblSub = new JLabel("Fine European Cuisine Management System", SwingConstants.CENTER);
         lblSub.setBounds(50, 65, 400, 25);
-        lblSub.setForeground(softWhite);
+        lblSub.setForeground(darkText);
         lblSub.setFont(new Font("SansSerif", Font.PLAIN, 13));
         mainPanel.add(lblSub);
 
@@ -85,17 +88,17 @@ public class LoginView extends JFrame {
     }
 
     private void styleTextField(JTextField field, Color gold) {
-        field.setBackground(new Color(60, 40, 20));
-        field.setForeground(Color.WHITE);
-        field.setCaretColor(Color.WHITE);
-        field.setBorder(BorderFactory.createLineBorder(gold, 1));
+        field.setBackground(Color.WHITE);
+        field.setForeground(new Color(70, 50, 30));
+        field.setCaretColor(Color.BLACK);
+        field.setBorder(BorderFactory.createLineBorder(gold, 2));
         field.setFont(new Font("SansSerif", Font.PLAIN, 14));
     }
 
     private void styleButton(JButton button, Color gold) {
         button.setFocusPainted(false);
-        button.setBackground(new Color(60, 40, 20));
-        button.setForeground(gold);
+        button.setBackground(gold);
+        button.setForeground(Color.WHITE);
         button.setFont(new Font("SansSerif", Font.BOLD, 16));
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setBorder(BorderFactory.createLineBorder(gold, 1));

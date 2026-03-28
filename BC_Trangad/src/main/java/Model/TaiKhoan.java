@@ -1,22 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Model;
 
-/**
- *
- * @author DANG
- */
 public class TaiKhoan {
 
-    private int maTK;
     private String tenDangNhap;
     private String matKhau;
-    private int maVaiTro;
-    private boolean trangThai;
+    private int maNhanVien;
+    private String quyen;
 
     public TaiKhoan() {
+    }
+
+    public TaiKhoan(String tenDangNhap, String matKhau, int maNhanVien, String quyen) {
+        this.tenDangNhap = tenDangNhap;
+        this.matKhau = matKhau;
+        this.maNhanVien = maNhanVien;
+        this.quyen = quyen;
     }
 
     public TaiKhoan(String tenDangNhap, String matKhau) {
@@ -25,13 +23,6 @@ public class TaiKhoan {
     }
 
     // Getter & Setter
-    public int getMaTK() {
-        return maTK;
-    }
-
-    public void setMaTK(int maTK) {
-        this.maTK = maTK;
-    }
 
     public String getTenDangNhap() {
         return tenDangNhap;
@@ -49,19 +40,19 @@ public class TaiKhoan {
         this.matKhau = matKhau;
     }
 
-    public int getMaVaiTro() {
-        return maVaiTro;
+    public int getMaNhanVien() {
+        return maNhanVien;
     }
 
-    public void setMaVaiTro(int maVaiTro) {
-        this.maVaiTro = maVaiTro;
+    public void setMaNhanVien(int maNhanVien) {
+        this.maNhanVien = maNhanVien;
     }
 
-    public boolean isTrangThai() {
-        return trangThai;
+    public String getQuyen() {
+        return quyen;
     }
 
-    public void setTrangThai(boolean trangThai) {
-        this.trangThai = trangThai;
+    public void setQuyen(String quyen) {
+        this.quyen = quyen;
     }
 }
